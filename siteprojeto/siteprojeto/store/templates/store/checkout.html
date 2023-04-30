@@ -1,0 +1,73 @@
+
+{% extends "store/index.html" %}
+{% load static %}
+{% block titulo %}
+
+{% endblock %}
+
+{% block sobreNos %}
+{% endblock %}
+
+{% block corpo %}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box-element m-5" id="form-wrapper">
+            <form id="form" action="{% url 'store:payment' %}" method="post">
+                {% csrf_token %}
+
+                    <hr>
+                    <p>Informação de entrega:</p>
+                    <hr>
+                    <div class="form-inline">
+                        <input class="form-control m-1" type="text" name="city" placeholder="Cidade">
+                    </div>
+                    <div class="form-inline">
+                        <input class="form-control m-1" type="text" name="concelho" placeholder="Concelho">
+                    </div>
+                    <div class="form-inline">
+                        <input class="form-control m-1" type="text" name="zipcode" placeholder="Código-postal">
+                    </div>
+                    <div class="m-1">
+                        <input class="form-control m-1" type="text" name="address" placeholder="Morada">
+                    </div>
+
+                <hr>
+                <input id="form-button" class="btn btn-success btn-block m-1" type="submit" value="Continuar">
+            </form>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="box-element m-5 ">
+            <a  class="btn btn-outline-dark" href="{% url 'store:shop_cart' %}">&#x2190; Voltar para o Carrinho</a>
+            <hr>
+            <h3>Encomenda</h3>
+            <hr>
+            {% if items %}
+            {% for item in items %}
+            <div class="cart-row">
+                <div style="flex:2"><img class="row-image" src="{{ item.produto.imageURL }}"></div>
+                <div style="flex:2"><p>{{ item.produto }}</p></div>
+                <div style="flex:1"><p>{{ item.produto.preco }}€</p></div>
+                <div style="flex:1"><p>x{{ item.quantidade }}</p></div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <h5>Items: {{ compra.obter_total_items }}  </h5>
+            <h5>Total:   {{ compra.obter_total_compra }}€</h5>
+
+        </div>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="box-element m-5 escondido" id="payment-info">
+        <small>Opções de pagamento</small>
+    </div>
+</div>
+
+
+
+{% endblock %}

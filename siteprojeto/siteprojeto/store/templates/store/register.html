@@ -1,0 +1,33 @@
+
+{% extends "store/index.html" %}
+{% load static %}
+{% block titulo %}
+{% endblock %}
+{% block sobreNos %}
+{% endblock %}
+
+{% block corpo %}
+<div class="text-center container mt-5 bg-light">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form class="form-register" action="{% url 'store:register' %}" method="post">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 font-weight-normal">Registar</h1>
+                <input type="text" id="first_name" name="first_name" class="form-control m-2" placeholder="Nome próprio" required autofocus>
+                <input type="text" id="last_name" name="last_name" class="form-control m-2" placeholder="Apelido" required autofocus>
+                <input type="email" id="email" name="email" class="form-control m-2" placeholder="e-mail" required autofocus>
+                <input type="text" id="username" name="username" class="form-control m-2" placeholder="Username" required autofocus>
+                <input type="password" id="password" name="password" class="form-control m-2" placeholder="Password" required>
+                <input type="password" id="password_confirm" name="password_confirm" class="form-control m-2" placeholder="confirmar Password" required>
+                {% if error %}
+                <p><strong>{{ error }}</strong></p>
+                {% endif %}
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+{% endblock %}
+

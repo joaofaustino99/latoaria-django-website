@@ -1,0 +1,54 @@
+
+{% extends "store/index.html" %}
+{% load static %}
+{% block titulo %}
+{% endblock %}
+{% block sobreNos %}
+{% endblock %}
+
+{% block corpo %}
+<br>
+<h2 class="m-5"> Carrinho de Compras</h2>
+<div class="box-element m-5">
+	<a  class="btn btn-outline-dark" href="{% url 'store:index' %}">&#x2190; Continuar a comprar</a>
+	<br>
+	<br>
+	<table class="table">
+		<tr>
+			<th><h5>Items: <strong>{{ compra.obter_total_items }}</strong></h5></th>
+			<th><h5>Total:<strong> {{ compra.obter_total_compra|floatformat:2 }}€</strong></h5></th>
+			<th>
+				<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'store:checkout' %}">Checkout</a>
+			</th>
+		</tr>
+	</table>
+</div>
+
+<div class="box-element m-5">
+	<div class="cart-row">
+		<div style="flex:2"></div>
+		<div style="flex:2"><strong>Item</strong></div>
+		<div style="flex:1"><strong>Preço</strong></div>
+		<div style="flex:1"><strong>Quantidade</strong></div>
+		<div style="flex:1"><strong>Total</strong></div>
+		------
+	</div>
+	{% if items%}
+	{% for item in items%}
+	<div class="cart-row">
+		<div style="flex:2"><img class="row-image" src="{{ item.produto.imageURL }}"></div>
+		<div style="flex:2"><p>{{ item.produto }}</p></div>
+		<div style="flex:1"><p>{{ item.produto.preco|floatformat:2 }}€</p></div>
+		<div style="flex:1">
+			<p class="quantity">_____{{ item.quantidade }}_____</p>
+
+		</div>
+		<div style="flex:1"><p>{{ item.obter_total|floatformat:2 }}€</p></div>
+		<a href="{% url 'store:delete' item.id %} ">
+			<img  id="cart-icon" src="{% static 'store/images/delete.png' %}">
+		</a>
+	</div>
+	{% endfor %}
+	{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "store/index.html" %}
+{% load static %}
+{% block titulo %}
+{% endblock %}
+{% block sobreNos %}
+{% endblock %}
+
+{% block corpo %}
+<div class="row">
+    <div class="col-lg-3">
+        <div class="box-element m-5">
+            <img src="{{ produto.imageURL }}" class="img-thumbnail" width="100%">
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <div class="box-element m-5">
+
+            <div class="m-3">
+                <a  class="btn btn-outline-dark" style="float:right;" href="{% url 'store:products' %}">&#x2190; Voltar para os Produtos</a>
+            <h1>{{ produto }}</h1>
+            <h5 class="text-secondary"> {{ produto.descricao }}</h5>
+                <strong> <h3 style="float:right;"> {{ produto.preco|floatformat:2 }}€ </h3> </strong>
+                <br>
+                <br>
+                <hr>
+                {{ produto.descricao_grande }}
+                <hr>
+
+
+                <form class="form" action="{% url 'store:add_to_cart' produto.id %}" method="post">
+                    {% csrf_token %}
+                <input step="1" type="number" id="inputLoop" value="1"  min="1" max="360" name="Quantidade"> Quantidade </input>
+                <button  class="btn btn-success" style="float:right;" type="submit" >Adicionar ao carrinho &#128722;</button>
+                </form>
+                {% if erro %}
+                <strong><p style="float:right;"> {{ erro }} </p> </strong>
+                <br>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

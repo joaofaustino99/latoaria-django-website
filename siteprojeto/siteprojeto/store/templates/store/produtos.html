@@ -1,0 +1,51 @@
+
+{% extends "store/index.html" %}
+{% load static %}
+{% block titulo %}
+{% endblock %}
+{% block sobreNos %}
+{% endblock %}
+
+{% block corpo %}
+
+<form id="form" action="{% url 'store:products' %}" method="post">{% csrf_token %}
+  <div class="form-row align-items-center m-5">
+    <div class="col-auto my-1">
+
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Ordenar por ordem: </label>
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="ordem">
+        <option selected value="alfabetica">Alfabetica</option>
+        <option value="preco">Preço</option>
+      </select>
+        <button type="submit" class="btn btn-dark btn-sm">Ordenar</button>
+    </div>
+  </div>
+</form>
+
+{% if products_list %}
+<div class="col-lg-2"></div>
+<div class="container">
+    <div class="row align-items-stretch">
+        {% for product in products_list %}
+        <div class="col-lg-3 mt-3 ">
+            <div class="card" style="max-width: 250px;">
+                <img class="card-img-top" src="{{ product.imageURL }}" alt="Card image cap" height="300px" >
+                <div class="card-body">
+                    <h5 class="card-title text-fluid">{{ product }}</h5>
+                    <p class="card-text text-fluid">{{ product.descricao }}</p>
+                  <strong> <p class="card-text text-fluid">{{ product.preco|floatformat:2 }}€ </p> </strong>
+                    <a href="{% url 'store:product_view' product.id %}" class="btn btn-primary">Ver detalhes</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+<div class="col-lg-2"></div>
+
+{% endif %}
+<br>
+<br>
+<br>
+{% endblock %}
